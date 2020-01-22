@@ -8,14 +8,17 @@ class TravelForm extends Component {
       lastName: "",
       dateOfBirth: "",
       gender: "",
-      destination: ""
+      destination: "",
+      isVegan: false,
+      isLactoseFree: false,
+      proteinMeal: false
     };
     this.handleClick = this.handleClick.bind(this);
   }
   handleClick(event) {
-    const { name, value, type, radio, option } = event.target;
-    type === radio
-      ? this.setState({ [name]: radio }) && this.setState({ [name]: option })
+    const { name, value, type, radio, checkbox } = event.target;
+    type === radio || type === checkbox
+      ? this.setState({ [name]: radio || checkbox})
       : this.setState({ [name]: value });
   }
 
@@ -25,7 +28,7 @@ class TravelForm extends Component {
         <form className="jumbotron p-5 my-3 border box-shadow d-flex justify-content-center">
           <h3>Enter your details.</h3>
           <hr />
-          <label>
+         <p><label>
             First Name:
             <br />
             <input
@@ -48,8 +51,10 @@ class TravelForm extends Component {
               placeholder="Last Name"
             ></input>
           </label>
-          <br />
-          <label>
+          </p> 
+           <br />
+           <p>
+            <label>
             Date of birth:
             <br />
             <input
@@ -59,7 +64,9 @@ class TravelForm extends Component {
               onChange={this.handleClick}
             ></input>
           </label>
+           </p>
           <br />
+          <p>
           <label>
             Gender:
             <br />
@@ -81,47 +88,63 @@ class TravelForm extends Component {
               onChange={this.handleClick}
             />
           </label>
+          </p>
           <br />
+          <p>
           <label>
             Destination:
             {/*TODO: Display Destination on card
             https://youtu.be/DLX62G4lc44?t=14169 */}
             <br />
-            <select>
-              <option
-                type="option"
-                name="destination"
-                value="Sofia"
-                onChange={this.handleClick}
+            <select 
+            name="destination"
+            value={this.state.destination}
+            onChange={this.handleClick}>
+              
+              <option 
+              value="Sofia"
               >
                 Sofia
               </option>
-              <option
-                type="option"
-                name="destination"
-                value="Plovdiv"
-                onChange={this.handleClick}
+              <option 
+              value="Plovdiv"
               >
                 Plovdiv
               </option>
-              <option
-                type="option"
-                name="destination"
-                value="Varna"
-                onChange={this.handleClick}
+              <option 
+              value="Varna"
               >
                 Varna
               </option>
               <option
-                type="option"
-                name="destination"
-                value="Burgas"
-                onChange={this.handleClick}
+              value="Burgas"
               >
                 Burgas
               </option>
             </select>
-          </label>
+            </label>
+          </p>
+            <br/>
+            <div>
+             <p>Menu:</p>
+             <p>
+               <label> Vegan Menu:{" "} 
+              <input type="checkbox" name="isVegan" onChange={this.handleClick} />
+              </label>
+              </p> 
+              <br/>
+              <p>
+                <label> Lactose Free Menu:{" "} 
+                <input type="checkbox" name="isLactoseFree" onChange={this.handleClick} />
+                </label>
+              </p>
+              <br/>
+              <p>
+                <label> Steak Menu:{" "}
+                <input type="checkbox" name="proteinMeal" onChange={this.handleClick} />
+                </label>
+              </p>
+            </div>
           <br />
           <input type="submit" value="Submit"></input>
         </form>
@@ -138,11 +161,16 @@ class TravelForm extends Component {
           <br />
           <h3>
             you are <b>{this.state.gender}</b> born on
-            <b>{this.state.dateOfBirth}</b>
+            <b> {this.state.dateOfBirth}</b>
             <br />
-            and you will go to
-            <b>{this.state.destination}</b>
+            and you will go to 
+            <b> {this.state.destination} </b>
           </h3>
+          <p>Your meal options are: 
+          <p>{this.state.isVegan ? "Vegan Menu":"Non Vegan Menu"}</p>
+          <p>{this.state.isLactoseFree ? "Lactose Free Menu":"Non Lactose Free Menu"}</p>
+          <p>{this.state.proteinMeal ? "Protein Menu":"Non Protein Menu"}</p>
+           </p>
         </div>
       </div>
     );
